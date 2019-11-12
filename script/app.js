@@ -1,4 +1,4 @@
-//creating object 1
+//creating an object 1
 
 var shop1 = {
     location: 'Seattle',
