@@ -1,4 +1,6 @@
 
+var time = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm', '7:00pm']
+
 //creating construction object and converting individual object literals to a blueprint object
 function Shop(location, minCust, maxCust, avgCookie, timePeriod, salesPerHour) {
     this.location = location;
@@ -7,21 +9,22 @@ function Shop(location, minCust, maxCust, avgCookie, timePeriod, salesPerHour) {
     this.avgCookie = avgCookie;
     this.timePeriod = timePeriod;
     this.salesPerHour = salesPerHour;
-    this.cookiesEachHour = this.getCookiesEachHour();
+    this.getCookiesEachHour();
 }
 
+
+//calculate cookies each hour and add it to object property
+//Need prototype keyword to make method available to all instances
 Shop.prototype.getCookiesEachHour = function () {
-    for (var i = 0; i < 13; i++) {
+    for (var i = 0; i < time.length; i++) {
         var range = this.maxCust - this.minCust;
-        console.log(this.maxCust);
+        //console.log(this.maxCust);
         var randNumWithinRange = Math.floor(Math.random() * range + this.minCust);
         var salesAnHour = randNumWithinRange * Math.ceil(this.avgCookie);
         this.salesPerHour.push(salesAnHour);
     }
 }
 
-
-var time = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm', '7:00pm']
 
 var seattleShop = new Shop('Seattle', 23, 65, 6.3, time, []);
 var tokyoShop = new Shop('Tokyo', 3, 24, 1.2, time, []);
@@ -96,15 +99,31 @@ function getCookiesList(shop) {
     })();
     //add total cookies to each element
     addElement('td',locationRowElement, totalcookies);
-    console.log('total',totalcookies)
+    //console.log('total',totalcookies)
 }
 
+function getGrandTotal() {
+    var hourlyTotal = 0;
+    var allShops = ['seattleShop','tokyoShop','dubaiShop','parisShop','limaShop']
+    var totalElement = addElement('tr', tableElement);
+    addElement('th', totalElement, 'Total');
+    for(var i = 0; i < time.length; i++){
+        for (var j = 0; j < allShops.length; j++){
+            console.log('item:',allShops[j]);
+            hourlyTotal += allshops[j][j].salesPerHour[i];
+            
+            addElement('th', totalElement, hourlyTotal);
+        }
+    }
+    
+}
 
 getCookiesList(seattleShop);
 getCookiesList(tokyoShop);
 getCookiesList(dubaiShop);
 getCookiesList(parisShop);
 getCookiesList(limaShop);
+getGrandTotal();
 
 //function to add element
 function addElement(tag, container, text) {
