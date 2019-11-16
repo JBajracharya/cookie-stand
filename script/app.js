@@ -28,11 +28,11 @@ Shop.prototype.getCookiesEachHour = function () {
 }
 
 //add static sample shops to the object
-var seattleShop = new Shop('Seattle', 23, 65, 6.3, time, []);
-var tokyoShop = new Shop('Tokyo', 3, 24, 1.2, time, []);
-var dubaiShop = new Shop('Dubai', 11, 38, 3.7, time, []);
-var parisShop = new Shop('Paris', 11, 38, 3.7, time, []);
-var limaShop = new Shop('Lima', 2, 16, 4.6, time, []);
+var seattleShop = new Shop('Seattle', 23, 65, 6.3, time, [], 0);
+var tokyoShop = new Shop('Tokyo', 3, 24, 1.2, time, [], 0);
+var dubaiShop = new Shop('Dubai', 11, 38, 3.7, time, [], 0);
+var parisShop = new Shop('Paris', 11, 38, 3.7, time, [], 0);
+var limaShop = new Shop('Lima', 2, 16, 4.6, time, [], 0);
 
 //adding all the shops to array
 allShops.push(seattleShop);
@@ -125,21 +125,21 @@ var form = document.getElementById('input-form');
 form.addEventListener('submit', submitHandler);
 
 Shop.prototype.render = function() {
-    Console.log('FADFDASFADSF');
+    console.log('FADFDASFADSF');
     var locationRowElement = addElement('tr', tableElement);
-    addElement('th', locationRowElement, allShop[0].location);
+    addElement('th', locationRowElement, allShops[0].location);
 }
 
 // add new shop as value added in the page
 function submitHandler(event) {
+    event.preventDefault();
     console.log('click');
-    event.preventDefaul();
-    var addingNewShop = new Shop(event.target.location.value, parseInt(event.target.minCustomer.value), parseInt(event.target.maxCustomer.value), parseInt(event.target.avgCookies.value));
+    var addingNewShop = new Shop(event.target.location.value, parseInt(event.target.minCustomer.value), parseInt(event.target.maxCustomer.value), parseInt(event.target.avgCookies.value), time, [], 0);
     console.log('FADFDASFADSF');
+    allShops.push(addingNewShop);
     
     event.target.reset();
     
-    allShops.push(addingNewShop);
     
     addingNewShop.render();
     
